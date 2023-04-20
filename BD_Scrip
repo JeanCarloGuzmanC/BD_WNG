@@ -1,0 +1,22 @@
+
+create table usuario(
+usuario varchar (30),
+id_Usuario int not null auto_increment,
+correo varchar (100),
+primary key (usuario),
+foreign key (id_Usuario) references register (idUsuario)
+);
+
+
+create table upload (
+idTrabajo int not null auto_increment,
+usuari_o varchar (30),
+tituloTrabajo varchar(50),
+decripcion varchar (100),
+leguanjeProg varchar(30),
+filtroEdad int,
+precio float,
+primary key (idTrabajo),
+foreign key (usuari_o) references usuario (usuario)
+);
+
