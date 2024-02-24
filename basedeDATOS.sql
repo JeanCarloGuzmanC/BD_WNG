@@ -1,3 +1,6 @@
+
+use proyectbd;
+
 create table usuario(
 usuario varchar (30),
 id_Usuario int not null auto_increment,
@@ -6,6 +9,16 @@ primary key (usuario),
 foreign key (id_Usuario) references register (idUsuario)
 );
 
+create table register(
+idUsuario INT NOT NULL AUTO_INCREMENT,
+usuario varchar(30) NOT NULL,
+contrasena varchar(50) NOT NULL,
+nombre varchar(30) NOT NULL,
+apellido varchar(30) NOT NULL,
+correo varchar(100) NOT NULL,
+primary key (idUsuario),
+foreign key (idUsuario) references usuario (usuario)
+);
 
 create table upload (
 idTrabajo int not null auto_increment,
@@ -19,16 +32,12 @@ primary key (idTrabajo),
 foreign key (usuari_o) references usuario (usuario)
 );
 
-
-create table register(
-idUsuario INT NOT NULL AUTO_INCREMENT,
-usuario varchar(30) NOT NULL,
+CREATE TABLE login(
+idLogin INT NOT NULL AUTO_INCREMENT,
+idUsuario INT NOT NULL,
 contrasena varchar(50) NOT NULL,
-nombre varchar(30) NOT NULL,
-apellido varchar(30) NOT NULL,
-edad int NOT NULL,
-correo varchar(100) NOT NULL,
-primary key (idUsuario)
+PRIMARY KEY (idLogin),
+FOREIGN KEY (idUsuario) REFERENCES usuario (id_Usuario)
 );
 
 create table chatPrivate(
@@ -61,6 +70,13 @@ foreign key (id_Usuario) references usuario (id_Usuario)
 
 create table room(
 idRoom int NOT NULL AUTO_INCREMENT,
+idUsuario int NOT NULL,
 nombre varchar(30),
-primary key (idRoom)
+primary key (idRoom),
+foreign key (idUsuario) references usuario (id_Usuario)
 );
+
+ALTER TABLE register
+ADD CONSTRAINT fk_register_usuario
+FOREIGN KEY (usuario)
+REFERENCES usuario(usuario);
